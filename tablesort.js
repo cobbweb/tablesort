@@ -1,4 +1,4 @@
-/*! tablesort - v1.6.0 - 2012-11-07
+/*! tablesort - v0.2.0 - 2012-11-07
 * http://tristen.ca/tablesort/demo
 * Copyright (c) 2012 ; Licensed MIT */
 
@@ -51,7 +51,7 @@
             // Assume first row is the header and attach a click handler to eech.
             for(var i = 0; i < firstRow.cells.length; i++) {
                 var cell = firstRow.cells[i];
-                if(!hasClass(cell, 'no-sort')) {
+                if(!hasAttribute(cell, 'data-no-sort')) {
                     cell.className += ' sort-header';
                     addEvent(cell, 'click', onClick);
                 }
@@ -175,7 +175,7 @@
             for(i = 0; i < newRows.length; i++) {
                 // Don't sort on rows specified. TODO might want to
                 // do this more upstream.
-                if(!hasClass(newRows[i], 'no-sort')) {
+                if(!hasAttribute(newRows[i], 'data-no-sort')) {
                     t.tBodies[0].appendChild(newRows[i]);
                 }
             }
@@ -260,6 +260,9 @@
         },
         hasClass = function (el, c) {
             return(' ' + el.className + ' ').indexOf(' ' + c + ' ') > -1;
+        },
+        hasAttribute = function(el, attribute) {
+            return el.attributes && attribute in el.attributes;
         },
         // http://ejohn.org/apps/jselect/event.html
         addEvent = function (object, event, method) {
